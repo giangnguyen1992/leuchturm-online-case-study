@@ -102,30 +102,30 @@ onMounted(() => {
 
 .cards-grid {
   display: grid;
-  gap: 1rem;
+  gap: $space-md;
 
-  @media (min-width: 768px) {
+  @include respond-to(md) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media (min-width: 1024px) {
+  @include respond-to(lg) {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 .card {
-  padding: 1.5rem;
-  border: 1px solid #e0e0e8;
-  border-radius: 12px;
+  padding: $space-lg;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
   background: #fff;
-  transition: box-shadow 250ms ease, transform 250ms ease;
+  transition: box-shadow $transition-base, transform $transition-base;
 
   &:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: $shadow-md;
     transform: translateY(-2px);
   }
 
-  @media (prefers-reduced-motion: reduce) {
+  @include reduced-motion {
     transition: none;
     &:hover {
       transform: none;
@@ -134,18 +134,18 @@ onMounted(() => {
 }
 
 .card-title {
-  font-size: 1rem;
+  font-size: $font-size-base;
   font-weight: 600;
   line-height: 1.4;
   margin-bottom: 0.75rem;
-  color: #1a1a2e;
+  color: $color-navy;
 
   a {
     color: inherit;
     text-decoration: none;
 
     &:hover {
-      color: #e94560;
+      color: $color-accent;
     }
   }
 }
@@ -154,26 +154,26 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.75rem;
-  color: #6b6b80;
+  font-size: $font-size-xs;
+  color: $color-text-light;
   margin-bottom: 0.75rem;
 }
 
 .card-hostname {
-  padding: 0.125rem 0.5rem;
-  background: #f0f0f5;
-  border-radius: 9999px;
+  padding: $space-xs $space-sm;
+  background: $color-bg-alt;
+  border-radius: $radius-full;
 }
 
 .card-comments {
-  font-size: 0.875rem;
+  font-size: $font-size-sm;
   font-weight: 500;
-  color: #e94560;
+  color: $color-accent;
   text-decoration: none;
-  transition: color 150ms ease;
+  transition: color $transition-fast;
 
   &:hover {
-    color: #c73a52;
+    color: $color-accent-dark;
   }
 }
 
@@ -186,35 +186,35 @@ onMounted(() => {
 }
 
 .skeleton-line {
-  border-radius: 4px;
+  border-radius: $radius-sm;
   background: linear-gradient(
     90deg,
-    #e8e8ee 25%,
-    #f0f0f5 50%,
-    #e8e8ee 75%
+    $color-skeleton 25%,
+    $color-bg-alt 50%,
+    $color-skeleton 75%
   );
   background-size: 200% 100%;
   animation: skeleton-pulse 1.5s ease-in-out infinite;
 
-  @media (prefers-reduced-motion: reduce) {
+  @include reduced-motion {
     animation: none;
   }
 }
 
 .skeleton-title {
-  height: 1rem;
+  height: $font-size-base;
   width: 80%;
   margin-bottom: 0.75rem;
 }
 
 .skeleton-meta {
-  height: 0.75rem;
+  height: $font-size-xs;
   width: 50%;
   margin-bottom: 0.75rem;
 }
 
 .skeleton-score {
-  height: 0.875rem;
+  height: $font-size-sm;
   width: 30%;
 }
 
@@ -226,65 +226,52 @@ onMounted(() => {
 /* State cards */
 .state-card {
   text-align: center;
-  padding: 2rem;
-  border: 1px solid #e0e0e8;
-  border-radius: 12px;
+  padding: $space-xl;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
   background: #fff;
 }
 
 .state-icon {
-  font-size: 2rem;
+  font-size: $font-size-3xl;
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: $space-md;
 }
 
 .error-card p {
-  color: #d93025;
-  margin-bottom: 1rem;
+  color: $color-error;
+  margin-bottom: $space-md;
 }
 
 .retry-btn {
-  padding: 0.5rem 1.5rem;
-  border: 1px solid #e94560;
-  border-radius: 8px;
+  padding: $space-sm $space-lg;
+  border: 1px solid $color-accent;
+  border-radius: $radius-md;
   background: transparent;
-  color: #e94560;
+  color: $color-accent;
   font-weight: 500;
   cursor: pointer;
-  transition: all 150ms ease;
+  transition: all $transition-fast;
 
   &:hover {
-    background: #e94560;
+    background: $color-accent;
     color: #fff;
   }
 
   &:focus-visible {
-    outline: 2px solid #e94560;
-    outline-offset: 2px;
+    @include focus-ring;
   }
 }
 
 .hn-link {
   display: inline-block;
-  margin-top: 0.5rem;
-  color: #e94560;
+  margin-top: $space-sm;
+  color: $color-accent;
   font-weight: 500;
   text-decoration: none;
 
   &:hover {
-    color: #c73a52;
+    color: $color-accent-dark;
   }
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
 }
 </style>
