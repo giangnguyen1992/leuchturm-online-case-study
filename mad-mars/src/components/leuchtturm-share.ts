@@ -2,6 +2,7 @@ class LeuchtturmShare extends HTMLElement {
   static observedAttributes = ['article-title', 'article-url'];
 
   private shadow: ShadowRoot;
+  private copyTimeout = 0;
 
   constructor() {
     super();
@@ -94,6 +95,15 @@ class LeuchtturmShare extends HTMLElement {
           color: #2d8a56;
           font-weight: 600;
         }
+
+        .sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+        }
       </style>
 
       <div class="share-buttons" role="group" aria-label="Teilen-Optionen">
@@ -136,7 +146,7 @@ class LeuchtturmShare extends HTMLElement {
         </a>
       </div>
 
-      <div class="copy-status" aria-live="assertive" aria-atomic="true" style="position:absolute;clip:rect(0,0,0,0);width:1px;height:1px;overflow:hidden;"></div>
+      <div class="sr-only copy-status" aria-live="assertive" aria-atomic="true"></div>
     `;
 
     this.setupEventListeners();
@@ -165,12 +175,13 @@ class LeuchtturmShare extends HTMLElement {
         await navigator.clipboard.writeText(this.articleUrl);
         const label = copyBtn.querySelector('.copy-label');
         if (label) {
+          clearTimeout(this.copyTimeout);
           label.textContent = 'Kopiert!';
           label.classList.add('copy-feedback');
           if (copyStatus) {
             copyStatus.textContent = 'Link in die Zwischenablage kopiert';
           }
-          setTimeout(() => {
+          this.copyTimeout = window.setTimeout(() => {
             label.textContent = 'Link kopieren';
             label.classList.remove('copy-feedback');
             if (copyStatus) copyStatus.textContent = '';
