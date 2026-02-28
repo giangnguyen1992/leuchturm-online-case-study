@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Seite nicht gefunden — Leuchtturm Online"
+  description="Die angeforderte Seite konnte nicht gefunden werden."
+>
+  <section class="error-page">
+    <h1 class="error-code">404</h1>
+    <p class="error-message">Die Seite, die Sie suchen, existiert leider nicht.</p>
+    <a href="/" class="error-cta">
+      Zurück zur Startseite
+      <span aria-hidden="true">&rarr;</span>
+    </a>
+  </section>
+</BaseLayout>
+
+<style lang="scss">
+  .error-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - $header-height - 200px);
+    text-align: center;
+    padding: $space-2xl $space-md;
+  }
+
+  .error-code {
+    font-size: 8rem;
+    font-weight: 800;
+    color: $color-accent;
+    line-height: 1;
+    margin-bottom: $space-md;
+  }
+
+  .error-message {
+    font-size: $font-size-xl;
+    color: $color-text-light;
+    margin-bottom: $space-xl;
+    max-width: 400px;
+  }
+
+  .error-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-sm;
+    padding: $space-md $space-xl;
+    background-color: $color-accent;
+    color: $color-text-inverse;
+    font-weight: 600;
+    border-radius: $radius-md;
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background-color: $color-accent-dark;
+    }
+  }
+</style>

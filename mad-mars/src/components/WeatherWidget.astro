@@ -1,0 +1,116 @@
+---
+import { fetchWeather } from '../lib/weather';
+
+const HAMBURG_LAT = 53.55;
+const HAMBURG_LON = 9.99;
+
+let weather: Awaited<ReturnType<typeof fetchWeather>> | null = null;
+try {
+  weather = await fetchWeather();
+} catch {
+  // Build-time fetch failed — widget renders fallback
+}
+
+const buildTime = new Date().toLocaleString('de-DE', {
+  timeZone: 'Europe/Berlin',
+  hour: '2-digit',
+  minute: '2-digit',
+});
+---
+
+<div
+  class="weather-widget"
+  role="status"
+  aria-label="Wetter in Hamburg"
+  aria-live="polite"
+  data-lat={HAMBURG_LAT}
+  data-lon={HAMBURG_LON}
+>
+  {weather ? (
+    <div class="weather-content">
+      <span class="weather-icon" aria-hidden="true">{weather.icon}</span>
+      <span class="weather-temp" data-weather-temp>{weather.temperature}{weather.unit}</span>
+      <span class="weather-desc" data-weather-desc>{weather.description}</span>
+      <span class="weather-time" data-weather-time>Stand: {buildTime}</span>
+    </div>
+  ) : (
+    <div class="weather-content weather-fallback">
+      <span class="weather-icon" aria-hidden="true">🌡️</span>
+      <span class="weather-desc">Hamburg</span>
+    </div>
+  )}
+</div>
+
+<script>
+  import { fetchWeather } from '../lib/weather';
+
+  async function updateWeather() {
+    const widget = document.querySelector('.weather-widget');
+    if (!widget) return;
+
+    const lat = Number(widget.getAttribute('data-lat'));
+    const lon = Number(widget.getAttribute('data-lon'));
+
+    try {
+      const data = await fetchWeather(lat, lon);
+      const temp = widget.querySelector('[data-weather-temp]');
+      const desc = widget.querySelector('[data-weather-desc]');
+      const time = widget.querySelector('[data-weather-time]');
+
+      if (temp) temp.textContent = `${data.temperature}${data.unit}`;
+      if (desc) desc.textContent = data.description;
+      if (time) time.textContent = 'Gerade aktualisiert';
+
+      const icon = widget.querySelector('.weather-icon');
+      if (icon) icon.textContent = data.icon;
+    } catch {
+      // Keep build-time data visible on client-side error
+    }
+  }
+
+  updateWeather();
+</script>
+
+<style lang="scss">
+  .weather-widget {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .weather-content {
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+    font-size: $font-size-sm;
+    color: $color-text-inverse;
+  }
+
+  .weather-icon {
+    font-size: $font-size-base;
+    line-height: 1;
+  }
+
+  .weather-temp {
+    font-weight: 600;
+  }
+
+  .weather-desc {
+    display: none;
+
+    @include respond-to(md) {
+      display: inline;
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  .weather-time {
+    display: none;
+
+    @include respond-to(lg) {
+      display: inline;
+      font-size: $font-size-xs;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+</style>

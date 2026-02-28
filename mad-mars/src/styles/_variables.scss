@@ -1,0 +1,73 @@
+// ===========================================
+// Design Tokens
+// ===========================================
+
+// Colors
+$color-navy: #1a1a2e;
+$color-navy-light: #16213e;
+$color-accent: #e94560;
+$color-accent-light: #ff7b90;  // WCAG AA on dark backgrounds
+$color-accent-dark: #b8293f;   // WCAG AA with white text
+$color-bg: #fafafa;
+$color-bg-alt: #f0f0f5;
+$color-text: #2d2d3a;
+$color-text-light: #6b6b80;
+$color-text-inverse: #fafafa;
+$color-border: #e0e0e8;
+$color-link: #1a1a2e;
+$color-link-hover: $color-accent;
+$color-success: #2d8a56;
+$color-error: #d93025;
+$color-skeleton: #e8e8ee;
+
+// Typography
+$font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+$font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+
+$font-size-xs: 0.75rem;   // 12px
+$font-size-sm: 0.875rem;  // 14px
+$font-size-base: 1rem;    // 16px
+$font-size-lg: 1.125rem;  // 18px
+$font-size-xl: 1.25rem;   // 20px
+$font-size-2xl: 1.5rem;   // 24px
+$font-size-3xl: 2rem;     // 32px
+$font-size-4xl: 2.5rem;   // 40px
+
+$line-height-tight: 1.2;
+$line-height-base: 1.6;
+$line-height-loose: 1.8;
+
+// Spacing
+$space-xs: 0.25rem;  // 4px
+$space-sm: 0.5rem;   // 8px
+$space-md: 1rem;     // 16px
+$space-lg: 1.5rem;   // 24px
+$space-xl: 2rem;     // 32px
+$space-2xl: 3rem;    // 48px
+$space-3xl: 4rem;    // 64px
+
+// Layout
+$max-width-article: 720px;
+$max-width-page: 1200px;
+$header-height: 64px;
+
+// Breakpoints
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+
+// Borders
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-full: 9999px;
+
+// Shadows
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+$shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+// Transitions
+$transition-fast: 150ms ease;
+$transition-base: 250ms ease;

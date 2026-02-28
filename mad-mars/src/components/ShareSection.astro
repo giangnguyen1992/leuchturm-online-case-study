@@ -1,0 +1,83 @@
+---
+interface Props {
+  articleTitle: string;
+  articleUrl: string;
+}
+
+const { articleTitle, articleUrl } = Astro.props;
+
+const emailHref = `mailto:?subject=${encodeURIComponent(articleTitle)}&body=${encodeURIComponent(`${articleTitle}\n\n${articleUrl}`)}`;
+const twitterHref = `https://twitter.com/intent/tweet?text=${encodeURIComponent(articleTitle)}&url=${encodeURIComponent(articleUrl)}`;
+---
+
+<aside class="share-section" aria-label="Artikel teilen">
+  <h2 class="share-heading">Artikel teilen</h2>
+
+  <leuchtturm-share article-title={articleTitle} article-url={articleUrl}>
+    <!-- Light-DOM fallback: visible until Custom Element upgrades -->
+    <div class="share-fallback">
+      <a href={emailHref} class="fallback-link">
+        <span aria-hidden="true">✉️</span>
+        Per E-Mail teilen
+      </a>
+      <a
+        href={twitterHref}
+        class="fallback-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span aria-hidden="true">𝕏</span>
+        Auf X teilen
+      </a>
+    </div>
+  </leuchtturm-share>
+</aside>
+
+<script>
+  import './leuchtturm-share';
+</script>
+
+<style lang="scss">
+  .share-section {
+    @include container($max-width-article);
+    padding-top: $space-xl;
+    padding-bottom: $space-xl;
+    border-top: 1px solid $color-border;
+    border-bottom: 1px solid $color-border;
+    margin-bottom: $space-2xl;
+  }
+
+  .share-heading {
+    font-size: $font-size-xl;
+    margin-bottom: $space-md;
+  }
+
+  /* Hide light-DOM fallback once the Custom Element is defined */
+  leuchtturm-share:defined .share-fallback {
+    display: none;
+  }
+
+  .share-fallback {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-sm;
+  }
+
+  .fallback-link {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-sm;
+    padding: $space-sm $space-md;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    color: $color-text;
+    transition: all $transition-fast;
+
+    &:hover {
+      border-color: $color-accent;
+      color: $color-accent;
+    }
+  }
+</style>

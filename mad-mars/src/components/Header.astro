@@ -1,0 +1,69 @@
+---
+import Navigation from './Navigation.astro';
+import WeatherWidget from './WeatherWidget.astro';
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo" aria-label="Leuchtturm Online — Zur Startseite">
+      <svg class="logo-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2L9 9H3l5 4.5L6 22l6-4 6 4-2-8.5L21 9h-6L12 2z" fill="currentColor"/>
+      </svg>
+      <span class="logo-text">Leuchtturm <span class="logo-accent">Online</span></span>
+    </a>
+
+    <Navigation />
+    <WeatherWidget />
+  </div>
+</header>
+
+<style lang="scss">
+  .site-header {
+    background-color: $color-navy;
+    color: $color-text-inverse;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: $shadow-md;
+  }
+
+  .header-inner {
+    @include container;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: $header-height;
+    gap: $space-md;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    color: $color-text-inverse;
+    font-weight: 700;
+    font-size: $font-size-lg;
+    flex-shrink: 0;
+    transition: opacity $transition-fast;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  .logo-icon {
+    color: $color-accent-light;
+  }
+
+  .logo-text {
+    display: none;
+
+    @include respond-to(md) {
+      display: inline;
+    }
+  }
+
+  .logo-accent {
+    color: $color-accent-light;
+  }
+</style>

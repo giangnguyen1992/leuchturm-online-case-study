@@ -1,0 +1,107 @@
+---
+interface Props {
+  category: string;
+  title: string;
+  subtitle: string;
+  author: string;
+  publishDate: string;
+  heroImage: string;
+  heroAlt: string;
+}
+
+const { category, title, subtitle, author, publishDate, heroImage, heroAlt } = Astro.props;
+
+const formattedDate = new Date(publishDate).toLocaleDateString('de-DE', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<header class="article-header">
+  <span class="category-badge">{category}</span>
+  <h1 class="article-title">{title}</h1>
+  <p class="article-subtitle">{subtitle}</p>
+  <div class="article-meta">
+    <span class="author">Von <strong>{author}</strong></span>
+    <time datetime={publishDate}>{formattedDate}</time>
+  </div>
+  <figure class="hero-figure">
+    <img
+      src={heroImage}
+      alt={heroAlt}
+      class="hero-image"
+      loading="eager"
+      decoding="async"
+    />
+    <figcaption>{heroAlt}</figcaption>
+  </figure>
+</header>
+
+<style lang="scss">
+  .article-header {
+    margin-bottom: $space-2xl;
+  }
+
+  .category-badge {
+    display: inline-block;
+    padding: $space-xs $space-md;
+    background-color: $color-accent-dark;
+    color: #fff;
+    font-size: $font-size-xs;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: $radius-full;
+    margin-bottom: $space-md;
+  }
+
+  .article-title {
+    font-size: $font-size-3xl;
+    line-height: $line-height-tight;
+    margin-bottom: $space-md;
+
+    @include respond-to(md) {
+      font-size: $font-size-4xl;
+    }
+  }
+
+  .article-subtitle {
+    font-size: $font-size-xl;
+    color: $color-text-light;
+    line-height: $line-height-base;
+    margin-bottom: $space-lg;
+  }
+
+  .article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-md;
+    font-size: $font-size-sm;
+    color: $color-text-light;
+    margin-bottom: $space-xl;
+
+    time {
+      color: $color-text-light;
+    }
+  }
+
+  .hero-figure {
+    margin: 0;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: $radius-lg;
+  }
+
+  figcaption {
+    font-size: $font-size-xs;
+    color: $color-text-light;
+    margin-top: $space-sm;
+    text-align: center;
+  }
+</style>

@@ -1,0 +1,132 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleHeader from "../../components/ArticleHeader.astro";
+import ArticleBody from "../../components/ArticleBody.astro";
+import ShareSection from "../../components/ShareSection.astro";
+import RelatedArticles from "../../components/RelatedArticles.vue";
+
+const articleTitle =
+  "Neuer Leuchtturm in der HafenCity: Ein Wahrzeichen für Hamburg";
+const articleUrl = new URL(Astro.url.pathname, Astro.site).toString();
+
+const heroImage =
+  "https://images.unsplash.com/photo-1567359781514-3b964e2b04d6?w=1200&h=675&fit=crop&auto=format";
+---
+
+<BaseLayout
+  title={`${articleTitle} — Leuchtturm Online`}
+  description="Die HafenCity bekommt ein neues architektonisches Highlight: Ein moderner Leuchtturm soll als kulturelles Zentrum und Aussichtspunkt dienen."
+>
+  <article class="article-container">
+    <ArticleHeader
+      category="Hamburg"
+      title={articleTitle}
+      subtitle="Die HafenCity bekommt ein neues architektonisches Highlight: Ein moderner Leuchtturm soll als kulturelles Zentrum und Aussichtspunkt dienen."
+      author="Marie Schneider"
+      publishDate="2026-02-25"
+      heroImage={heroImage}
+      heroAlt="Blick auf die Hamburger HafenCity bei Sonnenuntergang mit modernen Gebäuden am Wasser"
+    />
+
+    <ArticleBody>
+      <p>
+        Die Hamburger HafenCity, bereits bekannt für ihre beeindruckende moderne
+        Architektur und die weltberühmte Elbphilharmonie, steht vor einem
+        weiteren Meilenstein in ihrer Entwicklung. Ein neuer Leuchtturm — nicht
+        im traditionellen Sinne, sondern als multifunktionales Bauwerk — soll
+        das Viertel um eine weitere Attraktion bereichern.
+      </p>
+      <p>
+        Das Projekt, das vom renommierten Architekturbüro <strong
+          >Schulte &amp; Partner</strong
+        > entworfen wurde, vereint historische Elemente der norddeutschen Leuchtturmtradition
+        mit zeitgenössischer Architektur. Der Turm soll eine Höhe von 65 Metern erreichen
+        und neben einer öffentlich zugänglichen Aussichtsplattform auch Ausstellungsräume,
+        ein Café und einen Veranstaltungssaal beherbergen.
+      </p>
+      <p>
+        „Hamburg hat eine lange maritime Tradition, und Leuchttürme sind ein
+        zentraler Teil dieser Geschichte", erklärt Projektleiterin <strong
+          >Dr. Anna Berger</strong
+        >. „Unser Entwurf greift diese Tradition auf und übersetzt sie in die
+        Zukunft. Der Leuchtturm wird nicht nur ein architektonisches Statement
+        sein, sondern auch ein Ort der Begegnung und des kulturellen
+        Austauschs."
+      </p>
+      <p>
+        Die Bauarbeiten sollen im Frühjahr 2027 beginnen, die Fertigstellung ist
+        für Ende 2029 geplant. Die Gesamtkosten werden auf rund 180 Millionen
+        Euro geschätzt, wobei ein erheblicher Teil durch private Investoren
+        finanziert wird. Die Stadt Hamburg beteiligt sich mit einem Zuschuss von
+        45 Millionen Euro, da das Projekt als wichtiger Beitrag zur
+        Stadtentwicklung und zum Tourismus betrachtet wird.
+      </p>
+    </ArticleBody>
+  </article>
+
+  <ShareSection articleTitle={articleTitle} articleUrl={articleUrl} />
+
+  <section class="related-section" aria-labelledby="related-heading">
+    <div class="related-inner">
+      <h2 id="related-heading">Mehr zum Thema</h2>
+      <RelatedArticles client:visible />
+      <noscript>
+        <div class="related-fallback">
+          <p>Entdecken Sie aktuelle Themen auf</p>
+          <a
+            href="https://news.ycombinator.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Hacker News →
+          </a>
+        </div>
+      </noscript>
+    </div>
+  </section>
+</BaseLayout>
+
+<style lang="scss">
+  .article-container {
+    @include container($max-width-article);
+    padding-top: $space-2xl;
+    padding-bottom: $space-xl;
+  }
+
+  .related-section {
+    @include container($max-width-page);
+    padding-bottom: $space-2xl;
+  }
+
+  .related-inner {
+    max-width: $max-width-page;
+  }
+
+  .related-inner h2 {
+    font-size: $font-size-2xl;
+    margin-bottom: $space-lg;
+  }
+
+  .related-fallback {
+    text-align: center;
+    padding: $space-xl;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+    background: $color-bg;
+
+    p {
+      color: $color-text-light;
+      margin-bottom: $space-sm;
+    }
+
+    a {
+      color: $color-accent;
+      font-weight: 600;
+      text-decoration: none;
+
+      &:hover {
+        color: $color-accent-dark;
+      }
+    }
+  }
+</style>

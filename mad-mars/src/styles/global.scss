@@ -1,0 +1,36 @@
+// ===========================================
+// Global Styles
+// ===========================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'reset';
+@use 'typography';
+
+// Skip-to-content link
+.skip-link {
+  @include visually-hidden;
+  position: fixed;
+  top: $space-sm;
+  left: $space-sm;
+  z-index: 1000;
+  padding: $space-sm $space-md;
+  background: $color-navy;
+  color: $color-text-inverse;
+  border-radius: $radius-md;
+  font-weight: 600;
+
+  &:focus {
+    clip: auto;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    white-space: normal;
+  }
+}
+
+// Utility: visually hidden
+.sr-only {
+  @include visually-hidden;
+}

@@ -1,0 +1,208 @@
+---
+const navItems = [
+  { href: '/', label: 'Startseite' },
+  { href: '/politik', label: 'Politik' },
+  { href: '/wirtschaft', label: 'Wirtschaft' },
+  { href: '/kultur', label: 'Kultur' },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  return currentPath === href || currentPath.startsWith(href + '/');
+}
+---
+
+<nav aria-label="Hauptnavigation">
+  <button
+    class="burger"
+    id="burger-btn"
+    type="button"
+    aria-expanded="false"
+    aria-controls="nav-menu"
+    aria-label="Menü öffnen"
+  >
+    <span class="burger-line" aria-hidden="true"></span>
+    <span class="burger-line" aria-hidden="true"></span>
+    <span class="burger-line" aria-hidden="true"></span>
+  </button>
+  <ul class="nav-list" id="nav-menu">
+    {navItems.map((item) => (
+      <li>
+        <a
+          href={item.href}
+          class:list={['nav-link', { active: isActive(item.href) }]}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style lang="scss">
+  nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: $space-sm;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+
+    @include respond-to(md) {
+      display: none;
+    }
+  }
+
+  .burger-line {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: $color-text-inverse;
+    border-radius: 2px;
+    transition: transform $transition-base, opacity $transition-base;
+
+    @include reduced-motion {
+      transition: none;
+    }
+  }
+
+  .burger.is-open .burger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .burger.is-open .burger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .burger.is-open .burger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .nav-list {
+    display: none;
+    position: absolute;
+    top: $header-height;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: $color-navy;
+    box-shadow: $shadow-lg;
+    padding: $space-sm 0;
+
+    &.is-open {
+      display: flex;
+    }
+
+    @include respond-to(md) {
+      display: flex;
+      position: static;
+      flex-direction: row;
+      gap: $space-sm;
+      background: none;
+      box-shadow: none;
+      padding: 0;
+    }
+  }
+
+  .nav-link {
+    display: block;
+    padding: $space-sm $space-md;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    color: $color-text-inverse;
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &.active {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    @include respond-to(md) {
+      font-size: $font-size-base;
+      padding: $space-sm $space-md;
+      border-radius: $radius-sm;
+    }
+  }
+</style>
+
+<script>
+  const burger = document.getElementById('burger-btn');
+  const menu = document.getElementById('nav-menu');
+  if (burger && menu) {
+    const links = menu.querySelectorAll<HTMLAnchorElement>('.nav-link');
+    const firstLink = links[0];
+    const lastLink = links[links.length - 1];
+
+    function openMenu() {
+      burger!.classList.add('is-open');
+      menu!.classList.add('is-open');
+      burger!.setAttribute('aria-expanded', 'true');
+      burger!.setAttribute('aria-label', 'Menü schließen');
+    }
+
+    function closeMenu() {
+      burger!.classList.remove('is-open');
+      menu!.classList.remove('is-open');
+      burger!.setAttribute('aria-expanded', 'false');
+      burger!.setAttribute('aria-label', 'Menü öffnen');
+    }
+
+    burger.addEventListener('click', () => {
+      const isOpen = burger.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && burger.getAttribute('aria-expanded') === 'true') {
+        closeMenu();
+        burger.focus();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (
+        burger.getAttribute('aria-expanded') === 'true' &&
+        !menu.contains(e.target as Node) &&
+        !burger.contains(e.target as Node)
+      ) {
+        closeMenu();
+      }
+    });
+
+    // Tab trapping
+    lastLink?.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab' && !e.shiftKey && burger.getAttribute('aria-expanded') === 'true') {
+        e.preventDefault();
+        closeMenu();
+        burger.focus();
+      }
+    });
+
+    firstLink?.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab' && e.shiftKey && burger.getAttribute('aria-expanded') === 'true') {
+        e.preventDefault();
+        burger.focus();
+      }
+    });
+  }
+</script>

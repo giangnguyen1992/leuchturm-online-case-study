@@ -1,0 +1,83 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo">Leuchtturm <span class="footer-accent">Online</span></span>
+      <p class="footer-tagline">Nachrichten aus Hamburg und der Welt</p>
+    </div>
+    <div class="footer-links">
+      <a href="/">Startseite</a>
+      <a href="/politik">Politik</a>
+      <a href="/wirtschaft">Wirtschaft</a>
+      <a href="/kultur">Kultur</a>
+      <a href="/impressum">Impressum</a>
+    </div>
+    <p class="footer-copyright">
+      &copy; {currentYear} Leuchtturm Online. Alle Rechte vorbehalten.
+      <br />
+      <small>Ein fiktives Nachrichtenportal — Case Study</small>
+    </p>
+  </div>
+</footer>
+
+<style lang="scss">
+  .site-footer {
+    background-color: $color-navy;
+    color: $color-text-inverse;
+    padding: $space-2xl $space-md;
+    margin-top: $space-3xl;
+  }
+
+  .footer-inner {
+    @include container;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-lg;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-weight: 700;
+    font-size: $font-size-lg;
+  }
+
+  .footer-accent {
+    color: $color-accent-light;
+  }
+
+  .footer-tagline {
+    font-size: $font-size-sm;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: $space-xs;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: $space-lg;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    a {
+      font-size: $font-size-sm;
+      color: rgba(255, 255, 255, 0.8);
+      transition: color $transition-fast;
+
+      &:hover {
+        color: $color-accent;
+      }
+    }
+  }
+
+  .footer-copyright {
+    font-size: $font-size-xs;
+    color: rgba(255, 255, 255, 0.5);
+
+    small {
+      font-size: $font-size-xs;
+    }
+  }
+</style>

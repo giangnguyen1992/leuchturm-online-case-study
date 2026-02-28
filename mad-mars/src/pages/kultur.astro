@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Kultur — Leuchtturm Online"
+  description="Kulturelle Highlights, Veranstaltungen und Rezensionen aus Hamburg."
+>
+  <section class="category-page">
+    <h1>Kultur</h1>
+    <p class="category-subtitle">Hier entstehen bald aktuelle Beiträge zum Thema Kultur.</p>
+  </section>
+</BaseLayout>
+
+<style lang="scss">
+  .category-page {
+    @include container($max-width-article);
+    padding-top: $space-3xl;
+    padding-bottom: $space-3xl;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: $font-size-4xl;
+    margin-bottom: $space-md;
+  }
+
+  .category-subtitle {
+    font-size: $font-size-lg;
+    color: $color-text-light;
+  }
+</style>

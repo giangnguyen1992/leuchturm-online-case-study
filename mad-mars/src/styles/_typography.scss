@@ -1,0 +1,75 @@
+// ===========================================
+// Typography
+// ===========================================
+@use 'variables' as *;
+@use 'mixins' as *;
+
+body {
+  font-family: $font-sans;
+  font-size: $font-size-base;
+  color: $color-text;
+  background-color: $color-bg;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 700;
+  line-height: $line-height-tight;
+  color: $color-navy;
+}
+
+h1 {
+  font-size: $font-size-3xl;
+
+  @include respond-to(md) {
+    font-size: $font-size-4xl;
+  }
+}
+
+h2 {
+  font-size: $font-size-2xl;
+
+  @include respond-to(md) {
+    font-size: $font-size-3xl;
+  }
+}
+
+h3 {
+  font-size: $font-size-xl;
+
+  @include respond-to(md) {
+    font-size: $font-size-2xl;
+  }
+}
+
+// Prose styles (article body)
+.prose {
+  font-size: $font-size-lg;
+  line-height: $line-height-loose;
+  color: $color-text;
+
+  p {
+    margin-bottom: $space-lg;
+  }
+
+  a {
+    color: $color-accent;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover {
+      color: $color-accent-dark;
+    }
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  blockquote {
+    border-left: 3px solid $color-accent;
+    padding-left: $space-lg;
+    margin: $space-xl 0;
+    font-style: italic;
+    color: $color-text-light;
+  }
+}
