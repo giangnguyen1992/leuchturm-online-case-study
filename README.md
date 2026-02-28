@@ -1,46 +1,59 @@
-# Astro Starter Kit: Basics
+# Leuchtturm Online
+
+A fictional German news article page built with **Astro 5** as a case study. The project demonstrates three distinct frontend patterns on a single article page: a weather widget, a share web component, and a related articles island.
+
+## Getting Started
+
+**Prerequisites:** Node.js 18+ and [pnpm](https://pnpm.io/)
 
 ```sh
-pnpm create astro@latest -- --template basics
+pnpm install
+pnpm dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The dev server starts at `http://localhost:4321`.
 
-## 🚀 Project Structure
+## Commands
 
-Inside of your Astro project, you'll see the following folders and files:
+| Command           | Action                                                     |
+| :---------------- | :--------------------------------------------------------- |
+| `pnpm dev`        | Start dev server at `localhost:4321`                       |
+| `pnpm build`      | Build production site to `./dist/`                         |
+| `pnpm preview`    | Preview production build locally                           |
+| `pnpm test`       | Run unit tests (Vitest)                                    |
+| `pnpm test:e2e`   | Run E2E tests (Playwright)                                 |
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+## Tech Stack
+
+- **Astro 5** — static site generation, zero JS by default
+- **Vue 3** — island architecture via `client:visible`
+- **SCSS** — scoped component styles + global design tokens
+- **TypeScript** — strict mode
+- **Vitest + Playwright** — unit and E2E testing with accessibility checks (axe-core)
+
+## Three Features
+
+1. **Weather Widget** — server-rendered at build time with client-side refresh via the Open-Meteo API.
+2. **Share Section** — a Custom Element with Shadow DOM offering Web Share, clipboard, email, and Twitter sharing. Falls back gracefully without JS.
+3. **Related Articles** — a Vue 3 island loaded with `client:visible` that fetches Hacker News top stories. Handles loading, success, error, and empty states.
+
+## Project Structure
+
+```
+src/
+├── components/     # Astro components, Vue island, Custom Element
+├── layouts/        # Base HTML shell (lang="de", skip link, header, footer)
+├── pages/          # File-based routing
+├── lib/            # Pure logic (weather, hacker-news)
+├── types/          # TypeScript type definitions
+└── styles/         # SCSS partials (_variables, _mixins, _reset, _typography)
+tests/
+├── unit/           # Vitest tests
+└── e2e/            # Playwright + axe-core accessibility tests
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Key Principles
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- **Accessibility** — skip link, ARIA landmarks, keyboard navigation, WCAG AA contrast, `prefers-reduced-motion`
+- **Progressive enhancement** — every JS feature has a visible no-JS fallback
+- **Zero initial JS** — Vue is deferred via `client:visible`, other scripts are inline bundles
