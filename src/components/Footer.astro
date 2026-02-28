@@ -9,11 +9,11 @@ const currentYear = new Date().getFullYear();
       <p class="footer-tagline">Nachrichten aus Hamburg und der Welt</p>
     </div>
     <nav class="footer-links" aria-label="Footer-Navigation">
-      <a href="/">Startseite</a>
-      <a href="/politik">Politik</a>
-      <a href="/wirtschaft">Wirtschaft</a>
-      <a href="/kultur">Kultur</a>
-      <a href="/impressum">Impressum</a>
+      <a href={import.meta.env.BASE_URL}>Startseite</a>
+      <a href={`${import.meta.env.BASE_URL}politik`}>Politik</a>
+      <a href={`${import.meta.env.BASE_URL}wirtschaft`}>Wirtschaft</a>
+      <a href={`${import.meta.env.BASE_URL}kultur`}>Kultur</a>
+      <a href={`${import.meta.env.BASE_URL}impressum`}>Impressum</a>
     </nav>
     <p class="footer-copyright">
       &copy; {currentYear} Leuchtturm Online. Alle Rechte vorbehalten.

@@ -8,7 +8,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://leuchtturm-online.example.com',
+  site: 'https://giangnguyen1992.github.io',
+  base: '/leuchturm-online-case-study',
   integrations: [vue()],
   vite: {
     css: {

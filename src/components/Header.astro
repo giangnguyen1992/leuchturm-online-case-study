@@ -5,7 +5,7 @@ import WeatherWidget from './WeatherWidget.astro';
 
 <header class="site-header">
   <div class="header-inner">
-    <a href="/" class="logo" aria-label="Leuchtturm Online — Zur Startseite">
+    <a href={import.meta.env.BASE_URL} class="logo" aria-label="Leuchtturm Online — Zur Startseite">
       <svg class="logo-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M12 2L9 9H3l5 4.5L6 22l6-4 6 4-2-8.5L21 9h-6L12 2z" fill="currentColor"/>
       </svg>
