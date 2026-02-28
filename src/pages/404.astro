@@ -9,7 +9,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="error-page">
     <h1 class="error-code">404</h1>
     <p class="error-message">Die Seite, die Sie suchen, existiert leider nicht.</p>
-    <a href={import.meta.env.BASE_URL} class="error-cta">
+    <a href={`${import.meta.env.BASE_URL}/`} class="error-cta">
       Zurück zur Startseite
       <span aria-hidden="true">&rarr;</span>
     </a>

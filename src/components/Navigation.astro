@@ -1,16 +1,17 @@
 ---
+const base = import.meta.env.BASE_URL;
 const navItems = [
-  { href: '/', label: 'Startseite' },
-  { href: '/politik', label: 'Politik' },
-  { href: '/wirtschaft', label: 'Wirtschaft' },
-  { href: '/kultur', label: 'Kultur' },
+  { href: `${base}/`, label: 'Startseite' },
+  { href: `${base}/politik`, label: 'Politik' },
+  { href: `${base}/wirtschaft`, label: 'Wirtschaft' },
+  { href: `${base}/kultur`, label: 'Kultur' },
 ];
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 function isActive(href: string): boolean {
-  if (href === '/') return currentPath === '/';
-  return currentPath === href || currentPath.startsWith(href + '/');
+  const normalizedHref = href.replace(/\/$/, '') || '/';
+  return currentPath === normalizedHref || currentPath.startsWith(normalizedHref + '/');
 }
 ---
 
