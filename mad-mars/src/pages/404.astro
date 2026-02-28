@@ -28,7 +28,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .error-code {
-    font-size: 8rem;
+    font-size: 5rem;
+
+    @include respond-to(md) {
+      font-size: 8rem;
+    }
     font-weight: 800;
     color: $color-accent;
     line-height: 1;
@@ -39,7 +43,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     font-size: $font-size-xl;
     color: $color-text-light;
     margin-bottom: $space-xl;
-    max-width: 400px;
   }
 
   .error-cta {

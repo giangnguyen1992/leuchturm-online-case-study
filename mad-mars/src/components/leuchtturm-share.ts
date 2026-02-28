@@ -84,6 +84,12 @@ class LeuchtturmShare extends HTMLElement {
           display: none;
         }
 
+        @media (prefers-reduced-motion: reduce) {
+          .share-btn {
+            transition: none;
+          }
+        }
+
         .copy-feedback {
           color: #2d8a56;
           font-weight: 600;
