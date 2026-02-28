@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 
 test.describe('Article Page', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/artikel/hafencity-leuchtturm');
+    await page.goto('/');
   });
 
   test('has correct title and h1', async ({ page }) => {

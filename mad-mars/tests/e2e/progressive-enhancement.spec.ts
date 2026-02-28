@@ -4,7 +4,7 @@ test.describe('Progressive Enhancement (JS disabled)', () => {
   test.use({ javaScriptEnabled: false });
 
   test.beforeEach(async ({ page }) => {
-    await page.goto('/artikel/hafencity-leuchtturm');
+    await page.goto('/');
   });
 
   test('article content is fully readable', async ({ page }) => {

@@ -50,21 +50,52 @@ const buildTime = new Date().toLocaleString('de-DE', {
 
     const lat = Number(widget.getAttribute('data-lat'));
     const lon = Number(widget.getAttribute('data-lon'));
+    const hasBuildData = widget.querySelector('[data-weather-temp]') !== null;
+
+    // Loading state
+    widget.setAttribute('aria-busy', 'true');
+    widget.classList.add('is-loading');
 
     try {
       const data = await fetchWeather(lat, lon);
+
+      // Ensure all display elements exist (create them if build failed)
+      let content = widget.querySelector('.weather-content');
+      if (!content || content.classList.contains('weather-fallback')) {
+        content?.remove();
+        content = document.createElement('div');
+        content.className = 'weather-content';
+        content.innerHTML = `
+          <span class="weather-icon" aria-hidden="true"></span>
+          <span class="weather-temp" data-weather-temp></span>
+          <span class="weather-desc" data-weather-desc></span>
+          <span class="weather-time" data-weather-time></span>
+        `;
+        widget.appendChild(content);
+      }
+
       const temp = widget.querySelector('[data-weather-temp]');
       const desc = widget.querySelector('[data-weather-desc]');
       const time = widget.querySelector('[data-weather-time]');
+      const icon = widget.querySelector('.weather-icon');
 
       if (temp) temp.textContent = `${data.temperature}${data.unit}`;
       if (desc) desc.textContent = data.description;
       if (time) time.textContent = 'Gerade aktualisiert';
-
-      const icon = widget.querySelector('.weather-icon');
       if (icon) icon.textContent = data.icon;
+
+      widget.classList.remove('has-error');
     } catch {
-      // Keep build-time data visible on client-side error
+      if (!hasBuildData) {
+        // Both build and client fetch failed — show error state
+        widget.classList.add('has-error');
+        const desc = widget.querySelector('.weather-desc');
+        if (desc) desc.textContent = 'Nicht verfügbar';
+      }
+      // If build data exists, keep it visible (stale data > error in header)
+    } finally {
+      widget.removeAttribute('aria-busy');
+      widget.classList.remove('is-loading');
     }
   }
 
@@ -118,5 +149,19 @@ const buildTime = new Date().toLocaleString('de-DE', {
       font-size: $font-size-xs;
       color: rgba(255, 255, 255, 0.6);
     }
+  }
+
+  .weather-widget.is-loading .weather-content {
+    opacity: 0.6;
+    transition: opacity $transition-fast;
+
+    @include reduced-motion {
+      transition: none;
+    }
+  }
+
+  .weather-widget.has-error .weather-desc {
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
   }
 </style>
